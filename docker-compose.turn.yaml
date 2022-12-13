@@ -1,0 +1,29 @@
+version: "3"
+services:
+
+  coturn:
+    image: coturn/coturn:4.6.1
+    restart: always
+    network_mode: host
+    environment:
+      - TURN_USER
+      - TURN_PASSWORD
+      - TURN_SERVER_EXTERNAL_IP
+    command:
+      - turnserver
+      #- -c=/etc/coturn/turnserver.conf
+      - --log-file=stdout
+      - --external-ip=${TURN_SERVER_EXTERNAL_IP}
+      - --listening-port=3478
+      - --min-port=10000
+      - --max-port=10010
+      - --tls-listening-port=5349
+      - --listening-ip=0.0.0.0
+      - --realm=localhost
+      - --server-name=${FRONT_HOST}
+      - --lt-cred-mech
+      #- --userdb=/var/lib/turn/turndb
+      - --user=${TURN_USER}:${TURN_PASSWORD}
+      # use real-valid certificate/privatekey files
+      #- --cert=/root/letsencrypt/fullchain.pem
+      #- --pkey=/root/letsencrypt/privkey.pem

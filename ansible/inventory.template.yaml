@@ -1,0 +1,8 @@
+all:
+  children:
+    workadventure:
+      hosts:
+        workadventure-dev
+    turn:
+      hosts:
+        workadventure-turn
