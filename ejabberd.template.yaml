@@ -90,7 +90,8 @@ s2s_use_starttls: optional
 
 acl:
   local:
-    user_regexp: ""
+    user_regexp:
+      - ".*": ${EJABBERD_DOMAIN}
   loopback:
     ip:
       - 127.0.0.0/8

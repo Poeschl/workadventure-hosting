@@ -57,7 +57,7 @@ services:
       - ENABLE_CHAT_ONLINE_LIST
       - ENABLE_CHAT_DISCONNECTED_LIST
       - UPLOADER_URL=https://${UPLOADER_HOST}
-      - EJABBERD_DOMAIN=https://${EJABBERD_HOST}
+      - EJABBERD_DOMAIN=${EJABBERD_HOST}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.play.rule=Host(`${FRONT_HOST}`)"
@@ -80,8 +80,9 @@ services:
       - UPLOADER_URL=https://${UPLOADER_HOST}
       - EMBEDLY_KEY
       - ENABLE_CHAT_UPLOAD
-      - EJABBERD_DOMAIN=https://${EJABBERD_HOST}
+      - EJABBERD_DOMAIN=${EJABBERD_HOST}
       - EJABBERD_WS_URI=wss://${EJABBERD_HOST}/ws
+      - ICON_URL=https://${ICON_HOST}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.chat.rule=Host(`${CHAT_HOST}`)"
@@ -114,7 +115,7 @@ services:
       - MAP_STORAGE_URL=map-storage:50053
       - PUBLIC_MAP_STORAGE_URL=https://${MAP_STORAGE_HOST}
       - PLAYER_VARIABLES_MAX_TTL
-      - EJABBERD_API_URI=http://ejabberd:5443/api
+      - EJABBERD_API_URI=https://${EJABBERD_HOST}/api
       - EJABBERD_DOMAIN=${EJABBERD_HOST}
       - EJABBERD_USER
       - EJABBERD_PASSWORD
@@ -183,8 +184,6 @@ services:
 
   ejabberd:
     image: thecodingmachine/workadventure-ejabberd:${VERSION}
-    ports:
-      - 5443
     environment:
       - CTL_ON_CREATE=register ${EJABBERD_USER} ${EJABBERD_HOST} ${EJABBERD_PASSWORD}
       - JWT_SECRET=${EJABBERD_JWT_SECRET}
