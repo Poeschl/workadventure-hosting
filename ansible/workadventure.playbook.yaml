@@ -96,6 +96,8 @@
           dest: docker-compose.yaml
         - src: ../.env
           dest: .env
+        - src: ../ejabberd.template.yaml
+          dest: ejabberd.template.yaml
       ansible.builtin.copy:
         src: "{{ item.src }}"
         dest: "~/workadventure/{{ item.dest }}"

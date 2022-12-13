@@ -9,5 +9,6 @@ The setup contains two docker-composes for two hosts.
 This is already the minimal setup, since the turn server needs the ports 80 and 443 to be buisness-firewall safe.
 
 For a deployment create your own `.env` file from the template and fill in your values.
-After that copy the .env file and one of the docker-compose file to one host and the .env and the other docker-compose to the second.
+After that copy the `.env` file and one of the docker-compose file to one host and the `.env` and the other docker-compose to the second.
+Make sure to also transfer the `ejaberd.template.yaml` to the host which runs the workadventure system.
 Start both and the workadventure should be running under your domains (you should register them beforehand).

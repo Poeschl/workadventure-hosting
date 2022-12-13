@@ -22,7 +22,6 @@ services:
       - --realm=localhost
       - --server-name=${FRONT_HOST}
       - --lt-cred-mech
-      #- --userdb=/var/lib/turn/turndb
       - --user=${TURN_USER}:${TURN_PASSWORD}
       # use real-valid certificate/privatekey files
       #- --cert=/root/letsencrypt/fullchain.pem
