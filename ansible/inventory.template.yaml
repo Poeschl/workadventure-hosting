@@ -1,4 +1,6 @@
 all:
+  vars:
+    hetzner_token:
   children:
     workadventure:
       hosts:

@@ -9,5 +9,8 @@ collections:
   - name: community.docker
     version: 2.7.1
     source: https://galaxy.ansible.com
+  - name: hetzner.hcloud
+    version: 1.9.0
+    source: https://galaxy.ansible.com
 
 
