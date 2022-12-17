@@ -91,6 +91,7 @@
         state: directory
 
     - name: Transfer relevant files
+      register: transfer_result
       loop:
         - src: ../docker-compose.yaml
           dest: docker-compose.yaml
@@ -103,5 +104,14 @@
         dest: "~/workadventure/{{ item.dest }}"
       
     - name: Start Workadventure docker-compose
+      register: docker_status
       community.docker.docker_compose:
         project_src: ~/workadventure
+
+    - name: Restart ejabberd if necessary
+      when: "(transfer_result.results | selectattr('dest', 'search', 'ejabberd.template.yaml$') | first).changed and not docker_status.changed"
+      community.docker.docker_compose:
+        project_src: ~/workadventure
+        restarted: true
+        services:
+          - ejabberd

@@ -27,6 +27,8 @@ ca_file: "/opt/ejabberd/conf/cacert.pem"
 auth_method:
   - jwt
   - internal
+  - anonymous
+anonymous_protocol: login_anon
 allow_multiple_connections: true
 auth_use_cache: false
 jwt_key: /opt/ejabberd/conf/jwt_key
@@ -36,21 +38,7 @@ disable_sasl_mechanisms: ["X-OAUTH2"]
 #jwt_key: "/opt/ejabberd/conf/jwtKey"
 
 listen:
-  -
-    port: 5222
-    ip: "::"
-    module: ejabberd_c2s
-    max_stanza_size: 262144
-    shaper: c2s_shaper
-    access: c2s
-    starttls_required: true
-  -
-    port: 5269
-    ip: "::"
-    module: ejabberd_s2s_in
-    max_stanza_size: 524288
-  -
-    port: 5443
+  - port: 5443
     ip: "::"
     module: ejabberd_http
     #tls: true
@@ -62,36 +50,13 @@ listen:
       "/upload": mod_http_upload
       "/ws": ejabberd_http_ws
       "/oauth": ejabberd_oauth
-  -
-    port: 5280
-    ip: "::"
-    module: ejabberd_http
-    request_handlers:
-      #"/admin": ejabberd_web_admin
-      "/api": mod_http_api
-      "/bosh": mod_bosh
-      "/captcha": ejabberd_captcha
-      "/upload": mod_http_upload
-      "/ws": ejabberd_http_ws
-      "/oauth": ejabberd_oauth
-  -
-    port: 5380
-    ip: "::"
-    module: ejabberd_http
-    request_handlers:
-      "/": ejabberd_web_admin
-  -
-    port: 1883
-    ip: "::"
-    module: mod_mqtt
-    backlog: 1000
 
 s2s_use_starttls: optional
 
 acl:
   local:
     user_regexp:
-      - ".*": ${EJABBERD_DOMAIN}
+      - ""
   loopback:
     ip:
       - 127.0.0.0/8
@@ -103,7 +68,7 @@ acl:
       - "${EJABBERD_USER}@${EJABBERD_DOMAIN}"
       - "${EJABBERD_USER}"
     ip:
-      - ::FFFF:172.19.0.0/16
+      - ::FFFF:172.0.0.0/8
 
 access_rules:
   local:
