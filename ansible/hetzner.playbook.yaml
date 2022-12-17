@@ -1,9 +1,6 @@
 - name: Provision systems
   hosts: localhost
   connection: local
-  vars:
-    turn_name: turn-host
-    workadventure_name: workadventure-host
   tasks:
 
     - name: Check for SSH key
@@ -20,64 +17,19 @@
         api_token: "{{hetzner_token}}"
         state: "{{state}}"
 
-    - name: Check for turn host
-      hcloud_server_info:
-        name: "{{turn_name}}"
-        api_token: "{{hetzner_token}}"
-      register: turn_info
-
-    - name: Print turn host attributes  
-      when: turn_info.hcloud_server_info | length > 0
-      ansible.builtin.debug:
-        msg: "{{turn_info.hcloud_server_info}}"
-
-    - name: Manage turn host
-      when: (turn_info.hcloud_server_info | length == 0) or state == "absent"
-      register: turn_result
-      hetzner.hcloud.hcloud_server:
-        name: "{{turn_name}}"
-        server_type: cx21
-        image: ubuntu-22.04
-        location: nbg1
-        ssh_keys:
-          - Workadventure SSH
-        api_token: "{{hetzner_token}}"
-        state: "{{state}}"
-
-    - name: Print turn creation results  
-      when: state == "present" and turn_result.hcloud_server is defined and (turn_result.hcloud_server | length > 0)
-      ansible.builtin.debug:
-        msg: "{{turn_result.hcloud_server}}"
-   
-
-    - name: Check for workadventure host
-      hcloud_server_info:
-        name: "{{workadventure_name}}"
-        api_token: "{{hetzner_token}}"
-      register: workadventure_info
-
-    - name: Print workadventure host attributes  
-      when: workadventure_info.hcloud_server_info | length > 0
-      ansible.builtin.debug:
-        msg: "{{workadventure_info.hcloud_server_info}}"
-
-    - name: Manage workadventure host
-      when: (workadventure_info.hcloud_server_info | length == 0)  or state == "absent"
-      register: workadventure_result
-      hetzner.hcloud.hcloud_server:
-        name: "{{workadventure_name}}"
-        server_type: cx21
-        image: ubuntu-22.04
-        location: nbg1
-        ssh_keys:
-          - Workadventure SSH
-        api_token: "{{hetzner_token}}"
-        state: "{{state}}"
-
-    - name: Print workadventure creation results  
-      when: state == "present" and workadventure_result.hcloud_server is defined and (workadventure_result.hcloud_server | length > 0)
-      ansible.builtin.debug:
-        msg: "{{workadventure_result.hcloud_server}}"
+    - name: Setup machines
+      ansible.builtin.include_tasks: setup-hosts.tasks.yaml
+      loop:
+        - name: turn
+          server_type: cx21
+          location: nbg1
+          ssh_keys:
+            - Workadventure SSH
+        - name: workadventure
+          server_type: cx21
+          location: nbg1
+          ssh_keys:
+            - Workadventure SSH
 
     - name: Print IP hint
       when: state == "present"

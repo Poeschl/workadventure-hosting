@@ -1,0 +1,36 @@
+# Tasks to setup a Hetzner host
+#
+# Vars:
+# - name: <>
+#   server_type: <> 
+#   location: <>
+#   ssh_keys:
+#     - <>
+
+- name: "Check for {{ item.name }} host"
+  hcloud_server_info:
+    name: "{{ item.name }}-host"
+    api_token: "{{ hetzner_token }}"
+  register: host_info
+
+- name: "Print {{ item.name }} host attributes"
+  when: host_info.hcloud_server_info | length > 0
+  ansible.builtin.debug:
+    msg: "{{ host_info.hcloud_server_info }}"
+
+- name: "Manage {{ item.name }} host"
+  when: (host_info.hcloud_server_info | length == 0) or state == "absent"
+  register: manage_result
+  hetzner.hcloud.hcloud_server:
+    name: "{{ item.name }}-host"
+    server_type: "{{ item.server_type }}"
+    image: ubuntu-22.04
+    location: "{{ item.location }}"
+    ssh_keys: "{{ item.ssh_keys }}"      
+    api_token: "{{ hetzner_token }}"
+    state: "{{ state }}"
+
+- name: "Print {{ item.name }} creation results"
+  when: state == "present" and manage_result.hcloud_server is defined and (manage_result.hcloud_server | length > 0)
+  ansible.builtin.debug:
+    msg: "{{ manage_result.hcloud_server }}"
