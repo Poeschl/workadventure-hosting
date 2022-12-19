@@ -4,6 +4,8 @@ roles:
     version: 5.2.1
   - name: geerlingguy.pip
     version: 2.2.0
+  - name: gantsign.oh-my-zsh
+    version: 2.6.0
 
 collections:
   - name: community.docker
