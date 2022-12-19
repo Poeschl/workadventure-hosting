@@ -1,5 +1,5 @@
-- name: Turn system
-  hosts: turn
+- name: Basic systems
+  hosts: all
   tasks:
     - name: Ensure colors
       ansible.builtin.lineinfile:
@@ -32,6 +32,9 @@
     - name: Reset ssh connection to get new group membership
       ansible.builtin.meta: reset_connection
 
+- name: Turn system
+  hosts: turn
+  tasks:
     - name: Ensure turn folder
       ansible.builtin.file:
         path: ~/turn
@@ -54,37 +57,6 @@
 - name: Workadventure system
   hosts: workadventure
   tasks:
-    - name: Ensure colors
-      ansible.builtin.lineinfile:
-        path: ~/.bashrc
-        regexp: '^export PS1='
-        line: 'export PS1="\[\e[32m\][\[\e[m\]\[\e[31m\]\u\[\e[m\]\[\e[33m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]:\[\e[36m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\[\e[32;47m\]\\$\[\e[m\] "'
-        create: true
-
-    - name: Ensure docker environment
-      become: true
-      vars:
-        docker_install_compose_plugin: true
-        docker_service_enabled: true
-        docker_users: "root"
-        docker_service_manage: true
-        docker_restart_handler_state: reloaded
-      ansible.builtin.import_role:
-        name: geerlingguy.docker
-
-    - name: Ensure docker python environment
-      become: true
-      vars:
-        pip_install_packages:
-          - docker
-          - docker-compose
-          - pyaml
-      ansible.builtin.import_role:
-        name: geerlingguy.pip
-    
-    - name: Reset ssh connection to get new group membership
-      ansible.builtin.meta: reset_connection
-
     - name: Ensure workadventure folder
       ansible.builtin.file:
         path: ~/workadventure
