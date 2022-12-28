@@ -18,7 +18,7 @@
         state: "{{state}}"
 
     - name: Setup machines
-      ansible.builtin.include_tasks: setup-hosts.tasks.yaml
+      ansible.builtin.include_tasks: tasks/setup-hosts.tasks.yaml
       loop:
         - name: turn
           server_type: cx21
