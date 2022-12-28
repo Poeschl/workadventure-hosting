@@ -12,3 +12,9 @@ For a deployment create your own `.env` file from the template and fill in your 
 After that copy the `.env` file and one of the docker-compose file to one host and the `.env` and the other docker-compose to the second.
 Make sure to also transfer the `ejaberd.template.yaml` to the host which runs the workadventure system.
 Start both and the workadventure should be running under your domains (you should register them beforehand).
+
+## Jitsi
+
+This repository will not handle the install of an Jitsi server.
+So if you are low-profile you can use a trusted one and insert the url into the `.env` file.
+For larger group we recommend hosting an own. The instructions for that are [here](https://jitsi.github.io/handbook/docs/devops-guide/devops-guide-docker/).
