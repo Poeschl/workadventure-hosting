@@ -1,6 +1,6 @@
 # Workadventure Self-Hosted
 
-I couldn't found compose files thar are really working out of the box for a self-hosted [Workadventure](https://github.com/thecodingmachine/workadventure) setup.
+I couldn't find compose files that are really working out of the box for a self-hosted [Workadventure](https://github.com/thecodingmachine/workadventure) setup.
 So this repository will serve me as an stable setup for my needs.
 
 ## Setup
