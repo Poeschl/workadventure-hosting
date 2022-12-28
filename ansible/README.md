@@ -4,6 +4,19 @@ Those are the playbooks to setup two hosts for a Workadventure setup.
 Two hosts must be availabe beforehand and the ips needs to be inserted into `inventory.yaml` in the coresponding group.
 For that copy the template and insert your ips.
 
+Example:
+
+```yaml
+all:
+  children:
+    workadventure:
+      hosts:
+        127.0.159.1 # Workadventure will run here
+    turn:
+      hosts:
+        127.0.159.2 # The TURN server will run here
+```
+
 ## Requirements
 
 To install the requirements execute
