@@ -13,16 +13,19 @@ services:
       - turnserver
       #- -c=/etc/coturn/turnserver.conf
       - --log-file=stdout
+      - --listening-ip=0.0.0.0
       - --external-ip=${TURN_SERVER_EXTERNAL_IP}
-      - --listening-port=3478
+      - --listening-port=80
+      - --tls-listening-port=443
       - --min-port=10000
       - --max-port=10010
-      - --tls-listening-port=5349
-      - --listening-ip=0.0.0.0
-      - --realm=localhost
+      - --realm=${FRONT_HOST}
       - --server-name=${FRONT_HOST}
       - --lt-cred-mech
       - --user=${TURN_USER}:${TURN_PASSWORD}
+      # - --use-auth-secret
+      # - --static-auth-secret ${TURN_STATIC_AUTH_SECRET}
+      - --verbose
       # use real-valid certificate/privatekey files
       #- --cert=/root/letsencrypt/fullchain.pem
       #- --pkey=/root/letsencrypt/privkey.pem
