@@ -39,3 +39,7 @@ To destroy the hosts
 ```shell
 ansible-playbook -i inventory.yaml --extra-vars "state=absent" hetzner.playbook.yaml
 ```
+
+## Jitsi with Ansible
+
+There is also a ansible playbook for hosting jitsi: https://github.com/udima-university/ansible-jitsi-meet
