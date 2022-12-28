@@ -39,6 +39,7 @@ services:
       - TURN_SERVER
       - TURN_USER
       - TURN_PASSWORD
+      - TURN_STATIC_AUTH_SECRET
       - STUN_SERVER
       - SKIP_RENDER_OPTIMIZATIONS
       - MAX_PER_GROUP
@@ -104,6 +105,7 @@ services:
       - TURN_SERVER
       - TURN_USER
       - TURN_PASSWORD
+      - TURN_STATIC_AUTH_SECRET
       - STUN_SERVER
       - JITSI_URL
       - JITSI_ISS

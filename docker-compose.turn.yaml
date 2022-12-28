@@ -5,10 +5,6 @@ services:
     image: coturn/coturn:4.6.1
     restart: always
     network_mode: host
-    environment:
-      - TURN_USER
-      - TURN_PASSWORD
-      - TURN_SERVER_EXTERNAL_IP
     command:
       - turnserver
       #- -c=/etc/coturn/turnserver.conf
@@ -22,9 +18,9 @@ services:
       - --realm=${FRONT_HOST}
       - --server-name=${FRONT_HOST}
       - --lt-cred-mech
-      - --user=${TURN_USER}:${TURN_PASSWORD}
-      # - --use-auth-secret
-      # - --static-auth-secret ${TURN_STATIC_AUTH_SECRET}
+      # - --user=${TURN_USER}:${TURN_PASSWORD}
+      - --use-auth-secret
+      - --static-auth-secret ${TURN_STATIC_AUTH_SECRET}
       - --verbose
       # use real-valid certificate/privatekey files
       #- --cert=/root/letsencrypt/fullchain.pem
