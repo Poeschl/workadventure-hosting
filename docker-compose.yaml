@@ -203,7 +203,7 @@ services:
       - "traefik.http.routers.ejabberd-ssl.tls=true"
       - "traefik.http.routers.ejabberd-ssl.tls.certresolver=myresolver"
     volumes:
-      - ./ejabberd.template.yaml:/opt/ejabberd/conf/ejabberd.template.yml
+      - ./ejabberd.template.yaml:/opt/ejabberd/conf/ejabberd.template.yaml
 
   map-storage:
     image: thecodingmachine/workadventure-map-storage:${VERSION}

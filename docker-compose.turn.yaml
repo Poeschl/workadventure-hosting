@@ -7,7 +7,6 @@ services:
     network_mode: host
     command:
       - turnserver
-      #- -c=/etc/coturn/turnserver.conf
       - --log-file=stdout
       - --listening-ip=0.0.0.0
       - --external-ip=${TURN_SERVER_EXTERNAL_IP}
